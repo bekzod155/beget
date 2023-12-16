@@ -5,7 +5,7 @@ import Customer from './customer.js'
 import { format, parse, parseISO} from 'date-fns'
 const router = Router()
 // Routes
-router.get('/', async(req, res) => {
+router.get('http://87.236.22.138:8080', async(req, res) => {
     const doctorData = await doctor.find()
     const servicesData = await services.find()
     const newdoctorData = doctorData.map(doc => ({ doctor: doc.doctor }))
