@@ -18,11 +18,11 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Set this to your private SSH key
           script: |
             cd /home/beget
             git pull
             npm install
             pm2 restart tibbiy
-          debug: true  # Enable debug output for troubleshooting
+          debug: true
