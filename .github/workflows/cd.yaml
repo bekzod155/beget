@@ -1,23 +1,28 @@
 name: Deploy changes
 
 on:
-    push:
-        branches: [master]
+  push:
+    branches:
+      - master
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Connect VPS and deploy changes
-              uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.HOST }}
-                  username: ${{ secrets.USERNAME }}
-                  password: ${{ secrets.PASSWORD }}
-                  port: ${{ secrets.PORT }}
-                  script: |
-                      cd /home/beget
-                      git pull
-                      npm install
-                      pm2 restart tibbiy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Connect VPS and deploy changes
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/beget
+            git pull
+            npm install
+            pm2 restart tibbiy
+          debug: true  # Enable debug output for troubleshooting
